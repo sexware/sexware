@@ -1,0 +1,27 @@
+local SexAPI = {}
+
+function SexAPI.GetRoles()
+    local roles = {}
+    local players = game:GetService("Players"):GetPlayers()
+
+    for _, player in pairs(players) do
+        local character = player.Character
+        local backpack = player:FindFirstChildOfClass("Backpack")
+
+        local function hasItem(itemName)
+            return (backpack and backpack:FindFirstChild(itemName)) or (character and (character:FindFirstChild(itemName) or character:FindFirstChildOfClass("Humanoid"):FindFirstChild(itemName)))
+        end
+
+        if hasItem("Knife") then
+            roles[player.Name] = "Murderer"
+        elseif hasItem("Gun") then
+            roles[player.Name] = "Sheriff"
+        else
+            roles[player.Name] = "Innocent"
+        end
+    end
+
+    return roles
+end
+
+return SexAPI
