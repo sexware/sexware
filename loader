@@ -1,0 +1,14 @@
+local balls = {
+    [142823291] = "https://raw.githubusercontent.com/sexware/sexware/main/sexwaremm2"
+    
+}
+
+local currentPlaceId = game.PlaceId
+
+if balls[currentPlaceId] then
+    print("Found supported game: " .. currentPlaceId)
+    local scriptUrl = balls[currentPlaceId]
+    loadstring(game:HttpGet(scriptUrl))()
+else
+    print("Unsupported game")
+end
